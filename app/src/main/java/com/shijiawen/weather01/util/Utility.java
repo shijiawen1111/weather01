@@ -2,9 +2,11 @@ package com.shijiawen.weather01.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.shijiawen.weather01.db.City;
 import com.shijiawen.weather01.db.County;
 import com.shijiawen.weather01.db.Province;
+import com.shijiawen.weather01.gson.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +35,7 @@ public class Utility {
     }
 
     //    解析服务器返回的市级数据信息
-    public static boolean handleCityResponse(String response,int provinceId) {
+    public static boolean handleCityResponse(String response, int provinceId) {
         if (!TextUtils.isEmpty(response)) {
             try {
                 JSONArray allCitys = new JSONArray(response);
@@ -54,7 +56,7 @@ public class Utility {
     }
 
     //    解析服务器返回县级数据信息
-    public static boolean handleCountyResponse(String response,int cityId) {
+    public static boolean handleCountyResponse(String response, int cityId) {
         if (!TextUtils.isEmpty(response)) {
             try {
                 JSONArray allCountys = new JSONArray(response);
@@ -72,5 +74,21 @@ public class Utility {
             }
         }
         return false;
+    }
+
+    //    将返回的天气JSON数据解析成Weather实体类
+    public static Weather handleWeatherResponse(String response) {
+        Weather weather = null;
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+//            Gson解析方式是调用fromJson方法
+            Gson gson = new Gson();
+            weather = gson.fromJson(weatherContent, Weather.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return weather;
     }
 }
