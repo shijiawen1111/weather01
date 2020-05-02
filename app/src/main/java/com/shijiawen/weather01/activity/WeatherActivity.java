@@ -1,5 +1,6 @@
 package com.shijiawen.weather01.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -30,6 +31,7 @@ import com.shijiawen.weather01.R;
 import com.shijiawen.weather01.fragment.ChooseAreaFragment;
 import com.shijiawen.weather01.gson.ForeCast;
 import com.shijiawen.weather01.gson.Weather;
+import com.shijiawen.weather01.service.AutoUpdateService;
 import com.shijiawen.weather01.util.HttpUtil;
 import com.shijiawen.weather01.util.Utility;
 
@@ -61,6 +63,7 @@ public class WeatherActivity extends AppCompatActivity {
     public DrawerLayout drawerLayout;
     private Button navButton;
     private FrameLayout fragment_container;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -236,5 +239,8 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weathherLayout.setVisibility(View.VISIBLE);
+
+        Intent intent = new Intent(WeatherActivity.this, AutoUpdateService.class);
+        startService(intent);// 开启服务
     }
 }
