@@ -13,14 +13,21 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+//    signingConfigs {
+//        config {
+//            storeFile file("/Users/mac.bookppo/Desktop/tianqizhizi.jks")
+//            storePassword 'xue19930422'
+//            keyAlias 'shijiawendev'
+//            keyPassword 'xue19930422'
+//        }
+//    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.config
         }
     }
-
 }
 
 dependencies {
@@ -37,6 +44,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01'
-
 
 }
